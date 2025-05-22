@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
 export type AppState = {
   isOpen: boolean;
@@ -6,19 +7,27 @@ export type AppState = {
   togglePopup: (status: boolean) => void;
 };
 
-const useAppStore = create<AppState>((set) => ({
-  isOpen: false,
-  theme: "dark",
-  togglePopup: (status) => {
-    set(() => ({
-      isOpen: status,
-    }));
-  },
-  //   toggleTheme: () => {
-  //     set((state) => ({
-  //       theme: state.theme == "dark" ? "light" : "dark",
-  //     }));
-  //   },
-}));
+const useAppStore = create<AppState>()(
+  persist(
+    (set) => ({
+      isOpen: false,
+      theme: "dark",
+      togglePopup: (status) => {
+        set(() => ({
+          isOpen: status,
+        }));
+      },
+      //   toggleTheme: () => {
+      //     set((state) => ({
+      //       theme: state.theme == "dark" ? "light" : "dark",
+      //     }));
+      //   },
+    }),
+    {
+      name: "app-storage",
+      storage: createJSONStorage(() => localStorage),
+    }
+  )
+);
 
 export default useAppStore;
