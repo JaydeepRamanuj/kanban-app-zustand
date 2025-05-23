@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import TaskInput from "./TaskInput";
 import { IoIosCloseCircle } from "react-icons/io";
-import useAppStore from "../stores/appStore";
-import useKanbanStore from "../stores/kanbanStore";
+import useAppStore from "../stores/useAppStore";
+import useKanbanStore from "../stores/useKanbanStore";
 function Popup() {
   const ref = useRef<HTMLDivElement>(null);
   const togglePopup = useAppStore((state) => state.togglePopup);

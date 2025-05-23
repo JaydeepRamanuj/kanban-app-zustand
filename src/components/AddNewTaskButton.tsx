@@ -1,6 +1,4 @@
-import React from "react";
-
-import useAppStore, { type AppState } from "../stores/appStore";
+import useAppStore, { type AppState } from "../stores/useAppStore";
 
 function AddNewTaskButton() {
   const togglePopup = useAppStore((state: AppState) => state.togglePopup);

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { KanbanState } from "../stores/kanbanStore";
+import type { KanbanState } from "../stores/useKanbanStore";
 
 function useLocalStorage() {
   const [data, setData] = useState<KanbanState | null>(() => {

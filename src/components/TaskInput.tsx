@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import useAppStore from "../stores/appStore";
-import type { TaskType } from "../stores/kanbanStore";
+import useAppStore from "../stores/useAppStore";
+import type { TaskType } from "../stores/useKanbanStore";
 
 type TaskInputProps = {
   onSubmit: (

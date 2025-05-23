@@ -1,27 +1,34 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-export type AppState = {
+export interface AppState {
   isOpen: boolean;
   theme: "dark" | "light";
-  togglePopup: (status: boolean) => void;
-};
+  togglePopup: (
+    status: boolean,
+    component?: React.Component,
+    componentHandler?: () => void
+  ) => void;
+  popupComponent: React.Component | null;
+}
 
 const useAppStore = create<AppState>()(
   persist(
     (set) => ({
       isOpen: false,
       theme: "dark",
-      togglePopup: (status) => {
+      popupComponent: null,
+      togglePopup: (status, component) => {
         set(() => ({
           isOpen: status,
+          popupComponent: component,
         }));
       },
-      //   toggleTheme: () => {
-      //     set((state) => ({
-      //       theme: state.theme == "dark" ? "light" : "dark",
-      //     }));
-      //   },
+      toggleTheme: () => {
+        set((state) => ({
+          theme: state.theme == "dark" ? "light" : "dark",
+        }));
+      },
     }),
     {
       name: "app-storage",

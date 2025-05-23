@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { useDroppable } from "@dnd-kit/core";
-import type { KanbanState, TaskType } from "../stores/kanbanStore";
-import useKanbanStore from "../stores/kanbanStore";
+import type { KanbanState, TaskType } from "../stores/useKanbanStore";
+import useKanbanStore from "../stores/useKanbanStore";
 import Task from "./Task";
 
 type ColumnProps = {

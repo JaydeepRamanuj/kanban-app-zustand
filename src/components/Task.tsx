@@ -1,8 +1,8 @@
 import React from "react";
 import { MdDeleteForever } from "react-icons/md";
 import { useDraggable } from "@dnd-kit/core";
-import type { KanbanState, TaskType } from "../stores/kanbanStore";
-import useKanbanStore from "../stores/kanbanStore";
+import type { KanbanState, TaskType } from "../stores/useKanbanStore";
+import useKanbanStore from "../stores/useKanbanStore";
 
 function Task({ id, title, status, description }: TaskType) {
   const changeStatus = useKanbanStore(

@@ -2,8 +2,8 @@ import Column from "./Column";
 
 import { DndContext, type DragEndEvent } from "@dnd-kit/core";
 
-import useKanbanStore from "../stores/kanbanStore";
-import useAppStore from "../stores/appStore";
+import useKanbanStore from "../stores/useKanbanStore";
+import useAppStore from "../stores/useAppStore";
 import AddNewTaskButton from "./AddNewTaskButton";
 function Kanban() {
   const taskCount = useKanbanStore((state) => state.taskCount);

@@ -1,4 +1,4 @@
-import type { KanbanState } from "../stores/kanbanStore";
+import type { KanbanState } from "../stores/useKanbanStore";
 
 export function getStateDataFromLocalStorage() {
   try {
