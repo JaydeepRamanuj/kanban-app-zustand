@@ -1,6 +1,5 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
-import { FcGoogle } from "react-icons/fc";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { useState } from "react";
 import { signIn } from "../lib/firebaseAuthServices";
