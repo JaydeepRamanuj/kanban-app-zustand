@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import useAppStore from "../stores/useAppStore";
 import { firebaseErrorMessages } from "../utils/firebaseErrorMessages";
 import { getUserData } from "../lib/firebaseServices";
+import GoogleSignInButton from "./GoogleSignInButton";
 function SignInForm() {
   const [isPassVisible, setPassVisible] = useState<boolean>(false);
   const closePopup = useAppStore((state) => state.closePopup);
@@ -124,9 +125,14 @@ function SignInForm() {
 
           <span className="text-center">OR</span>
 
-          <div className="rounded bg-white/40 flex items-center justify-center p-1.5 font-semibold gap-3 cursor-pointer">
+          {/* <div
+            className="rounded bg-white/40 flex items-center justify-center p-1.5 font-semibold gap-3 cursor-pointer"
+            onClick={handleGoogleSignIn}
+          >
             <FcGoogle className="text-xl" /> <span>Sign In with Google</span>
-          </div>
+          </div> */}
+
+          <GoogleSignInButton />
         </Form>
       )}
     </Formik>

@@ -1,13 +1,13 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from "yup";
-import { FcGoogle } from "react-icons/fc";
 import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5";
 import { useState } from "react";
 import useAppStore from "../stores/useAppStore";
-import { register } from "../lib/firebaseAuthServices";
 import { toast } from "react-toastify";
 import { firebaseErrorMessages } from "../utils/firebaseErrorMessages";
 import { saveUserData } from "../lib/firebaseServices";
+import GoogleSignInButton from "./GoogleSignInButton";
+import { register } from "../lib/firebaseAuthServices";
 
 function SignUpForm() {
   const [isPassVisible, setPassVisible] = useState<boolean>(false);
@@ -155,9 +155,14 @@ function SignUpForm() {
             Sign Up
           </button>
           <span className="text-center">OR</span>
-          <div className="rounded bg-white/40 flex items-center justify-center p-1.5 font-semibold gap-3 cursor-pointer">
+          {/* <div
+            className="rounded bg-white/40 flex items-center justify-center p-1.5 font-semibold gap-3 cursor-pointer"
+            onClick={handleGoogleSignIn}
+          >
             <FcGoogle className="text-xl" /> <span>Sign Up with Google</span>
-          </div>
+          </div> */}
+
+          <GoogleSignInButton />
         </Form>
       )}
     </Formik>

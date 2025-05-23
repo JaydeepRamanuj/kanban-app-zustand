@@ -1,54 +1,46 @@
-# React + TypeScript + Vite
+## Kanban Task Manager 🛠️ _(Work in Progress)_
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A real-time Kanban board built with **React**, **TypeScript**, and **Firebase**, featuring drag-and-drop interaction via **dnd-kit** and hybrid state management using **Zustand** (local and cloud sync).
 
-Currently, two official plugins are available:
+**🔧 Tech Stack:** React · TypeScript · Zustand · Firebase · dnd-kit
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+### 🚀 Current Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- ✅ Create and manage columns and tasks
+- ✅ Edit and delete tasks with real-time updates
+- ✅ Drag-and-drop functionality across and within columns
+- ✅ Firebase authentication and user-based data management
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+---
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 🔄 In Progress / Coming Soon
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- 📱 Mobile responsiveness
+- ⏱ Pomodoro app integration
+- 📝 Standalone Todo list app
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+---
+
+## 🎯 Future Vision
+
+This isn't just a practice project — it's something I plan to use personally. The goal is to turn this into a **fully functional productivity suite**, evolving based on my own workflow and productivity needs.
+
+---
+
+### 🧠 Planned Features
+
+- 🔔 Browser and system-level notifications
+- 📊 Productivity metrics dashboard
+- 🧭 Timeline view to visualize progress and learning milestones
+
+> ⚠️ **Note:** This project is under active development. UI and features may change frequently.
+
+---
+
+### 🐞 Known Issues
+
+1. Using `<select>` inside a task causes drag behavior conflicts
+2. Dragging tasks can appear beneath columns visually
+3. Tasks are not fully synced with user accounts _(currently being worked on)_

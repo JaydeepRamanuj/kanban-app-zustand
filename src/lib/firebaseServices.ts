@@ -4,8 +4,8 @@ import type { TaskType } from "../stores/useKanbanStore";
 
 export async function saveUserData(
   uid: string,
-  username: string,
-  email: string
+  username?: string | null,
+  email?: string | null
 ) {
   try {
     const userRef = doc(db, "users", uid);
