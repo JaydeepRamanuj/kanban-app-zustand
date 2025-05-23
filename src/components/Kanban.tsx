@@ -5,20 +5,28 @@ import { DndContext, type DragEndEvent } from "@dnd-kit/core";
 import useKanbanStore from "../stores/useKanbanStore";
 import useAppStore from "../stores/useAppStore";
 import AddNewTaskButton from "./AddNewTaskButton";
+import TaskInput from "./TaskInput";
+import Header from "./Header";
+import { useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "../lib/firebaseSetup";
 function Kanban() {
   const taskCount = useKanbanStore((state) => state.taskCount);
   const pendingTasks = useKanbanStore((state) => state.pendingTasks);
   const inProgressTasks = useKanbanStore((state) => state.inProgressTasks);
   const completedTasks = useKanbanStore((state) => state.completedTasks);
   const changeStatus = useKanbanStore((state) => state.changeStatus);
-  const togglePopup = useAppStore((state) => state.togglePopup);
+  const showPopup = useAppStore((state) => state.showPopup);
+  const closePopup = useAppStore((state) => state.closePopup);
+  const setUser = useAppStore((state) => state.setUser);
+  const clearUser = useAppStore((state) => state.clearUser);
 
   document.addEventListener("keydown", (e) => {
     if (e.ctrlKey && e.key == "q") {
-      togglePopup(true);
+      showPopup(<TaskInput />);
     }
     if (e.key == "Escape") {
-      togglePopup(false);
+      closePopup();
     }
   });
 
@@ -30,9 +38,23 @@ function Kanban() {
     changeStatus(taskId, newStatus);
   };
 
+  useEffect(() => {
+    const userStatus = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        // console.log("User is logged in:", user);
+        setUser(user);
+      } else {
+        // console.log("No user logged in.");
+        clearUser();
+      }
+    });
+
+    return () => userStatus();
+  }, []);
+
   return (
     <div className="min-h-screen p-6 rounded flex flex-col justify-between">
-      <h1 className="text-4xl text-center font-bold">Kanban Board</h1>
+      <Header />
       <DndContext onDragEnd={handleDragEnd}>
         <div className="mt-6 flex gap-6 mb-auto">
           <Column title="Pending" type="pending" />

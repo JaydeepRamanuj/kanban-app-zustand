@@ -1,24 +1,19 @@
 import React, { useState } from "react";
 import useAppStore from "../stores/useAppStore";
 import type { TaskType } from "../stores/useKanbanStore";
+import useKanbanStore from "../stores/useKanbanStore";
 
-type TaskInputProps = {
-  onSubmit: (
-    title: string,
-    description: string,
-    status: TaskType["status"]
-  ) => void;
-};
-function TaskInput({ onSubmit }: TaskInputProps) {
-  const togglePopup = useAppStore((state) => state.togglePopup);
+function TaskInput() {
+  const closePopup = useAppStore((state) => state.closePopup);
   const [title, setTitle] = useState<string>("");
   const [desc, setDesc] = useState<string>("");
   const [select, setSelect] = useState<TaskType["status"]>("pending");
+  const addTask = useKanbanStore((state) => state.addTask);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit(title, desc, select);
-    togglePopup(false);
+    closePopup();
+    addTask(title, desc, select);
   };
   return (
     <div className="relative">

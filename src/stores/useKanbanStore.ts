@@ -1,14 +1,14 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-export interface TaskType {
+export type TaskType = {
   id: number;
   title: string;
   status: "pending" | "inProgress" | "completed";
   description: string;
-}
+};
 
-export interface KanbanState {
+export type KanbanState = {
   tasks: TaskType[];
   id: number;
   taskCount: number;
@@ -25,7 +25,7 @@ export interface KanbanState {
     id: number,
     status: "pending" | "inProgress" | "completed"
   ) => void;
-}
+};
 
 const useKanbanStore = create<KanbanState>()(
   persist(
