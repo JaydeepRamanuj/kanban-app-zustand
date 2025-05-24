@@ -6,6 +6,12 @@ A real-time Kanban board built with **React**, **TypeScript**, and **Firebase**,
 
 ---
 
+## 🚀 Live Demo
+
+#### 👉[Kanban-app](https://kanbanapp-jd.netlify.app/)
+
+---
+
 ### 🚀 Current Features
 
 - ✅ Create and manage columns and tasks
@@ -34,13 +40,3 @@ This isn't just a practice project — it's something I plan to use personally. 
 - 🔔 Browser and system-level notifications
 - 📊 Productivity metrics dashboard
 - 🧭 Timeline view to visualize progress and learning milestones
-
-> ⚠️ **Note:** This project is under active development. UI and features may change frequently.
-
----
-
-### 🐞 Known Issues
-
-1. Using `<select>` inside a task causes drag behavior conflicts
-2. Dragging tasks can appear beneath columns visually
-3. Tasks are not fully synced with user accounts _(currently being worked on)_
