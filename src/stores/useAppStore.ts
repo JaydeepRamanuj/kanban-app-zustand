@@ -9,6 +9,7 @@ export type AppState = {
   theme: "dark" | "light";
   uid: string;
   username: string;
+  photoURL?: string;
   showPopup: (component?: React.ReactNode) => void;
   closePopup: () => void;
   popupComponent?: React.ReactNode | null;
@@ -17,6 +18,7 @@ export type AppState = {
   setUId: (uid: string) => void;
   setUser: (user: User) => void;
   clearUser: () => void;
+  setPhotoURL: (photoURL: string) => void;
 };
 
 const useAppStore = create<AppState>()(
@@ -40,7 +42,8 @@ const useAppStore = create<AppState>()(
           isOpen: false,
         }));
       },
-      setUsername: (username) => set({ username: username }),
+      setUsername: (username) => set({ username }),
+      setPhotoURL: (photoURL) => set({ photoURL: photoURL }),
       setUId: (uid: string) => set({ uid: uid }),
       setUser: (user) => set({ user: user }),
       clearUser: () => set({ user: null, username: "", uid: "" }),

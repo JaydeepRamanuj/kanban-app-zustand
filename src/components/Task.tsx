@@ -39,31 +39,33 @@ function Task({ id, title, status, description }: TaskType) {
       {...attributes}
       {...listeners}
       ref={setNodeRef}
-      className="p-2 rounded bg-white/20"
+      className="p-4 rounded-2xl shadow-md bg-white text-slate-800 border border-slate-100 transition-transform duration-200"
       style={style}
     >
-      <div className="flex justify-between items-center relative z-20 cursor-pointer active:cursor-grab">
-        <h1 className="text-lg font-bold">{title}</h1>
-        <select
-          name=""
-          id=""
-          // value={selectedStatus}
-          defaultValue={status}
-          className="bg-slate-800/50 text-white rounded text-sm cursor-pointer ml-auto"
-          onChange={handleSelectChange}
-          onPointerDown={(e) => e.stopPropagation()}
-        >
-          <option value="pending">Pending</option>
-          <option value="inProgress">In Process</option>
-          <option value="completed">Completed</option>
-        </select>
-        <MdDeleteForever
-          className="text-xl text-red-300 ml-1 cursor-pointer transition-all hover:text-red-400"
-          onClick={handleDelete}
-          onPointerDown={(e) => e.stopPropagation()}
-        />
+      <div className="flex justify-between items-start gap-2 relative z-20 cursor-grab active:cursor-grabbing">
+        <h1 className="text-base font-semibold text-slate-800">{title}</h1>
+
+        <div className="flex items-center gap-2 ml-auto">
+          <select
+            defaultValue={status}
+            className="bg-slate-100 text-slate-700 border border-slate-300 rounded-md px-2 py-1 text-sm shadow-sm cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-200"
+            onChange={handleSelectChange}
+            onPointerDown={(e) => e.stopPropagation()}
+          >
+            <option value="pending">Pending</option>
+            <option value="inProgress">In Process</option>
+            <option value="completed">Completed</option>
+          </select>
+
+          <MdDeleteForever
+            className="text-xl text-red-400 cursor-pointer hover:text-red-500 transition-colors duration-150"
+            onClick={handleDelete}
+            onPointerDown={(e) => e.stopPropagation()}
+          />
+        </div>
       </div>
-      <p>{description}</p>
+
+      <p className="mt-2 text-sm text-slate-600 leading-snug">{description}</p>
     </div>
   );
 }

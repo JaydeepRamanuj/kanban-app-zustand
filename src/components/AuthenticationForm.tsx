@@ -7,31 +7,35 @@ const AuthenticationForm = () => {
   const [type, setType] = useState<"signin" | "signup">("signin");
 
   return (
-    <div className="max-w-md mx-auto mt-12 p-6 bg-white/20 shadow-lg  rounded-xl md:min-w-[400px]">
-      <h2 className="text-2xl font-bold mb-4 text-center capitalize flex justify-center items-center gap-3">
-        <span
-          className={`p-0.5 rounded  text-white border border-gray-400 grow cursor-pointer hover:border-gray-200 ${
-            type === "signin" && "bg-blue-500"
-          }`}
-          onClick={() => {
-            setType("signin");
-          }}
-        >
-          Login
-        </span>
-        <span
-          className={`p-0.5 rounded  text-white border border-gray-400 grow cursor-pointer hover:border-gray-200  ${
-            type === "signup" && "bg-blue-500"
-          }`}
-          onClick={() => {
-            setType("signup");
-          }}
-        >
-          Register
-        </span>
+    <div className="w-full md:min-w-[380px] max-w-md mx-auto mt-10 p-6 bg-white/20 backdrop-blur-md shadow-xl rounded-xl border border-white/20">
+      <h2 className="text-xl font-semibold mb-6 text-center text-white">
+        Authentication
       </h2>
 
-      {type == "signin" ? <SignInForm /> : <SignUpForm />}
+      <div className="flex items-center justify-between gap-2 mb-6">
+        <button
+          className={`w-full py-2 rounded transition text-white border ${
+            type === "signin"
+              ? "bg-blue-600 border-blue-600 hover:bg-blue-700"
+              : "bg-transparent border-gray-400 hover:border-white/80"
+          }`}
+          onClick={() => setType("signin")}
+        >
+          Login
+        </button>
+        <button
+          className={`w-full py-2 rounded transition text-white border ${
+            type === "signup"
+              ? "bg-blue-600 border-blue-600 hover:bg-blue-700"
+              : "bg-transparent border-gray-400 hover:border-white/80"
+          }`}
+          onClick={() => setType("signup")}
+        >
+          Register
+        </button>
+      </div>
+
+      {type === "signin" ? <SignInForm /> : <SignUpForm />}
     </div>
   );
 };

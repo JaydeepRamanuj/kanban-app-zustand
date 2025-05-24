@@ -35,7 +35,7 @@ function Kanban() {
   const handleDragEnd = (e: DragEndEvent) => {
     const { active, over } = e;
     if (!over) return;
-    const taskId = Number(active.id);
+    const taskId = active.id as string;
     const newStatus = over.id as "pending" | "inProgress" | "completed";
 
     const task = tasks.find((task) => task.id === taskId);
@@ -59,37 +59,42 @@ function Kanban() {
   }, []);
 
   return (
-    <div className="min-h-screen p-3 md:p-6 rounded flex flex-col justify-between">
+    <div className="min-h-screen p-4 md:p-8 bg-gray-50 text-gray-800 flex flex-col gap-8">
       <Header />
+
       <DndContext onDragEnd={handleDragEnd}>
-        <div className="mt-6 flex gap-6 mb-auto flex-wrap">
+        <div className="flex flex-wrap gap-6 justify-center">
           <Column title="Pending" type="pending" />
           <Column title="In Progress" type="inProgress" />
           <Column title="Completed" type="completed" />
         </div>
       </DndContext>
-      <div className="mt-6 w-fit mx-auto mb-auto">
+
+      {/* Add Task Shortcut + Button */}
+      <div className="text-center">
         <AddNewTaskButton />
-        <span className="block mt-6">
+        <p className="mt-4 text-sm text-gray-500">
           Press
-          <code className="py-1 px-1.5 mx-1 rounded bg-white/20 text-lg font-semibold">
-            ctrl + q
+          <code className="mx-1 px-1.5 py-1 rounded bg-gray-200 text-gray-700 font-semibold">
+            Ctrl + Q
           </code>
-          to add new note
-        </span>
+          to add a new note
+        </p>
       </div>
-      <div className="bg-gray-500/20 p-2 rounded flex justify-around flex-wrap gap-3">
-        <span className="bg-white/10 py-0.5 px-2 rounded mx-3">
-          taskCount: {taskCount}
+
+      {/* Stats */}
+      <div className="bg-white shadow-inner p-4 rounded-lg flex flex-wrap justify-center gap-4 text-sm text-gray-700 font-medium">
+        <span className="bg-gray-100 px-3 py-1 rounded">
+          Total: {taskCount}
         </span>
-        <span className="bg-white/10 py-0.5 px-2 rounded mx-3">
-          pendingTasks: {pendingTasks}
+        <span className="bg-orange-100 px-3 py-1 rounded">
+          Pending: {pendingTasks}
         </span>
-        <span className="bg-white/10 py-0.5 px-2 rounded mx-3">
-          inProgressTasks: {inProgressTasks}
+        <span className="bg-yellow-100 px-3 py-1 rounded">
+          In Progress: {inProgressTasks}
         </span>
-        <span className="bg-white/10 py-0.5 px-2 rounded mx-3">
-          completedTasks: {completedTasks}
+        <span className="bg-green-100 px-3 py-1 rounded">
+          Completed: {completedTasks}
         </span>
       </div>
     </div>

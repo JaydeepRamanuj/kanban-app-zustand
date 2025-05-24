@@ -1,4 +1,3 @@
-import { getAuth } from "firebase/auth";
 import useAppStore, { type AppState } from "../stores/useAppStore";
 import TaskInput from "./TaskInput";
 
@@ -6,7 +5,6 @@ function AddNewTaskButton() {
   const showPopup = useAppStore((state: AppState) => state.showPopup);
   const handleClick = () => {
     showPopup(<TaskInput />);
-    console.log(getAuth().currentUser);
   };
 
   return (

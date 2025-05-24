@@ -1,10 +1,12 @@
 import { create } from "zustand";
+import { v4 as uuidv4 } from "uuid";
+
 import { createJSONStorage, persist } from "zustand/middleware";
 import useAppStore from "./useAppStore";
 import { updateData } from "../lib/firebaseServices";
 
 export type TaskType = {
-  id: number;
+  id: string;
   title: string;
   status: "pending" | "inProgress" | "completed";
   description: string;
@@ -12,7 +14,6 @@ export type TaskType = {
 
 export type KanbanState = {
   tasks: TaskType[];
-  id: number;
   taskCount: number;
   pendingTasks: number;
   inProgressTasks: number;
@@ -24,9 +25,9 @@ export type KanbanState = {
     description: string,
     status: "pending" | "inProgress" | "completed"
   ) => void;
-  removeTask: (id: number) => void;
+  removeTask: (id: string) => void;
   changeStatus: (
-    id: number,
+    id: string,
     status: "pending" | "inProgress" | "completed"
   ) => void;
 };
@@ -35,7 +36,6 @@ const useKanbanStore = create<KanbanState>()(
   persist(
     (set) => ({
       tasks: [],
-      id: 0,
       taskCount: 0,
       pendingTasks: 0,
       inProgressTasks: 0,
@@ -49,11 +49,11 @@ const useKanbanStore = create<KanbanState>()(
           const uid = useAppStore.getState().uid;
           const updatedTasks = [
             ...state.tasks,
-            { id: state.id + 1, title, status, description },
+            { id: uuidv4(), title, status, description },
           ];
           if (uid) updateData(uid, updatedTasks);
           return {
-            id: state.id + 1,
+            id: uuidv4(),
             tasks: updatedTasks,
             taskCount: state.taskCount + 1,
             [`${status}Tasks`]: state[`${status}Tasks`] + 1,
@@ -61,11 +61,11 @@ const useKanbanStore = create<KanbanState>()(
         });
       },
       changeStatus: (
-        id: number,
+        id: string,
         status: "pending" | "inProgress" | "completed"
       ) => {
         set((state) => {
-          const task = state.tasks.find((task) => task.id == id);
+          const task = state.tasks.find((task) => task.id === id);
           const updatedTasks = state.tasks.map((task) => {
             if (task.id === id) {
               return { ...task, status: status };
@@ -86,7 +86,7 @@ const useKanbanStore = create<KanbanState>()(
           }
         });
       },
-      removeTask: (id: number) => {
+      removeTask: (id: string) => {
         set((state) => {
           const task = state.tasks.find((task) => task.id == id);
           const updatedTasks = state.tasks.filter((task) => task.id != id);

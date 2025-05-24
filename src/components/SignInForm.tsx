@@ -72,16 +72,16 @@ function SignInForm() {
               name="email"
               type="email"
               autoFocus={true}
-              className={`w-full p-2 border rounded ${
+              className={`w-full px-3 py-2 rounded border bg-white/80 text-black focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                 errors.email && touched.email
-                  ? "border-red-400/60"
-                  : "border-gray-300"
+                  ? "border-red-400"
+                  : "border-gray-300 focus:border-blue-500"
               }`}
             />
             <ErrorMessage
               name="email"
               component="div"
-              className="text-white bg-red-400/60  font-semibold text-sm  px-1.5 py-0.5 rounded-b"
+              className="text-red-200 bg-red-500/70 font-semibold text-xs px-2 py-1 mt-1 rounded shadow-sm"
             />
           </div>
 
@@ -94,16 +94,16 @@ function SignInForm() {
                 <Field
                   name="password"
                   type={isPassVisible ? "text" : "password"}
-                  className={`w-full p-2 border rounded ${
+                  className={`w-full px-3 py-2 rounded border bg-white/80 text-black focus:outline-none focus:ring-2 focus:ring-blue-500 ${
                     errors.password && touched.password
-                      ? "border-red-400/60"
-                      : "border-gray-300"
+                      ? "border-red-400"
+                      : "border-gray-300 focus:border-blue-500"
                   }`}
                 />
                 <ErrorMessage
                   name="password"
                   component="div"
-                  className="text-white bg-red-400/60 font-semibold text-sm  px-1.5 py-0.5 rounded-b"
+                  className="text-red-200 bg-red-500/70 font-semibold text-xs px-2 py-1 mt-1 rounded shadow-sm"
                 />
               </div>
 
@@ -120,19 +120,16 @@ function SignInForm() {
 
           <button
             type="submit"
-            className="bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition cursor-pointer"
+            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded transition"
           >
             Sign In
           </button>
 
-          <span className="text-center">OR</span>
-
-          {/* <div
-            className="rounded bg-white/40 flex items-center justify-center p-1.5 font-semibold gap-3 cursor-pointer"
-            onClick={handleGoogleSignIn}
-          >
-            <FcGoogle className="text-xl" /> <span>Sign In with Google</span>
-          </div> */}
+          <div className="flex items-center gap-2 text-white my-4">
+            <hr className="flex-grow border-white/30" />
+            <span className="text-sm font-medium">OR</span>
+            <hr className="flex-grow border-white/30" />
+          </div>
 
           <GoogleSignInButton />
         </Form>

@@ -17,54 +17,48 @@ function TaskInput() {
   };
   return (
     <div className="relative">
-      <form onSubmit={handleSubmit} className="min-w-[300px]">
-        <div className="flex flex-col gap-3">
-          <h2 className="bg-blue-500 text-white text-center text-xl font-semibold rounded-md">
-            Add new Task
+      <form onSubmit={handleSubmit} className="min-w-[350px] md:min-w-[350px]">
+        <div className="flex flex-col gap-4 bg-white/20 backdrop-blur-md rounded-xl p-5 border border-blue-300 shadow-xl text-sm text-gray-800">
+          <h2 className="text-lg text-center font-semibold text-white bg-blue-500/90 rounded-md py-2 shadow-md">
+            Add New Task
           </h2>
+
+          {/* Title Input */}
           <input
             type="text"
-            name=""
-            id=""
             value={title}
-            onChange={(e) => {
-              setTitle(e.target.value);
-            }}
-            placeholder="Title"
-            className="p-1.5 rounded  border border-gray-500 "
-            autoFocus={true}
-            required={true}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Task Title"
+            className="px-3 py-2 rounded-md bg-white/70 text-gray-800 placeholder-gray-500 border border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            autoFocus
+            required
           />
+
+          {/* Description */}
           <textarea
-            name=""
-            id=""
             value={desc}
-            onChange={(e) => {
-              setDesc(e.target.value);
-            }}
-            placeholder="Description"
-            className="p-1.5 rounded border border-gray-500"
+            onChange={(e) => setDesc(e.target.value)}
+            placeholder="Task Description"
+            rows={3}
+            className="px-3 py-2 rounded-md bg-white/70 text-gray-800 placeholder-gray-500 border border-gray-400 resize-none focus:outline-none focus:ring-2 focus:ring-blue-400"
           />
+
+          {/* Select Dropdown */}
           <select
-            name=""
-            id=""
             value={select}
-            onChange={(e) => {
-              setSelect(e.target.value as TaskType["status"]);
-            }}
-            className="p-1.5 rounded border border-gray-500"
+            onChange={(e) => setSelect(e.target.value as TaskType["status"])}
+            className="px-3 py-2 rounded-md bg-white/70 text-gray-800 border border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-400"
           >
-            <option value="pending" className="bg-slate-600 text-white">
-              Pending
-            </option>
-            <option value="inProgress" className="bg-slate-600 text-white">
-              In Progress
-            </option>
-            <option value="completed" className="bg-slate-600 text-white">
-              Completed
-            </option>
+            <option value="pending">🕒 Pending</option>
+            <option value="inProgress">🚧 In Progress</option>
+            <option value="completed">✅ Completed</option>
           </select>
-          <button className="px-3 py-1 rounded bg-blue-500 text-white mx-auto w-fit hover:bg-blue-600 active:bg-blue-600 active:scale-[.97] cursor-pointer">
+
+          {/* Submit Button */}
+          <button
+            type="submit"
+            className="bg-blue-600 hover:bg-blue-700 active:scale-[.97] text-white font-medium rounded-full px-5 py-2 w-fit mx-auto shadow-md transition-all"
+          >
             Add Task
           </button>
         </div>
