@@ -43,7 +43,7 @@ const useAppStore = create<AppState>()(
       setUsername: (username) => set({ username: username }),
       setUId: (uid: string) => set({ uid: uid }),
       setUser: (user) => set({ user: user }),
-      clearUser: () => set({ user: null }),
+      clearUser: () => set({ user: null, username: "", uid: "" }),
       toggleTheme: () => {
         set((state) => ({
           theme: state.theme == "dark" ? "light" : "dark",

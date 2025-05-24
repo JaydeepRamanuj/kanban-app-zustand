@@ -33,6 +33,7 @@ function TaskInput() {
             placeholder="Title"
             className="p-1.5 rounded  border border-gray-500 "
             autoFocus={true}
+            required={true}
           />
           <textarea
             name=""

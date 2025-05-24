@@ -3,11 +3,13 @@ import { FcGoogle } from "react-icons/fc";
 import { googleSignIn } from "../lib/firebaseAuthServices";
 import { getUserData, saveUserData } from "../lib/firebaseServices";
 import useAppStore from "../stores/useAppStore";
+import useKanbanStore from "../stores/useKanbanStore";
 
 function GoogleSignInButton() {
   const setUsername = useAppStore((state) => state.setUsername);
   const setUId = useAppStore((state) => state.setUId);
   const closePopup = useAppStore((state) => state.closePopup);
+  const initialize = useKanbanStore((state) => state.initialize);
   const handleGoogleSignIn = async () => {
     try {
       const result: UserCredential = await googleSignIn();
@@ -27,6 +29,7 @@ function GoogleSignInButton() {
       } else {
         const existingUser = await getUserData(uid);
         setUsername(existingUser?.username);
+        initialize(existingUser?.tasks);
       }
     } catch (error) {
       console.log("Error signing with Google", error);

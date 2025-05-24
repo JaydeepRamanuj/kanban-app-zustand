@@ -8,13 +8,14 @@ function Task({ id, title, status, description }: TaskType) {
   const changeStatus = useKanbanStore(
     (state: KanbanState) => state.changeStatus
   );
+
   const removeTask = useKanbanStore((state: KanbanState) => state.removeTask);
+
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     changeStatus(id, e.target.value as "pending" | "inProgress" | "completed");
   };
 
   const handleDelete = () => {
-    console.log("delete function");
     const response = confirm(
       `Are you sure you want to delete task :  ${title}`
     );
@@ -46,9 +47,11 @@ function Task({ id, title, status, description }: TaskType) {
         <select
           name=""
           id=""
+          // value={selectedStatus}
           defaultValue={status}
           className="bg-slate-800/50 text-white rounded text-sm cursor-pointer ml-auto"
           onChange={handleSelectChange}
+          onPointerDown={(e) => e.stopPropagation()}
         >
           <option value="pending">Pending</option>
           <option value="inProgress">In Process</option>
@@ -57,6 +60,7 @@ function Task({ id, title, status, description }: TaskType) {
         <MdDeleteForever
           className="text-xl text-red-300 ml-1 cursor-pointer transition-all hover:text-red-400"
           onClick={handleDelete}
+          onPointerDown={(e) => e.stopPropagation()}
         />
       </div>
       <p>{description}</p>

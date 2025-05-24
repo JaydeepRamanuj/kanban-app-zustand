@@ -20,6 +20,8 @@ function Kanban() {
   const closePopup = useAppStore((state) => state.closePopup);
   const setUser = useAppStore((state) => state.setUser);
   const clearUser = useAppStore((state) => state.clearUser);
+  const clearData = useKanbanStore((state) => state.clearData);
+  const tasks = useKanbanStore((state) => state.tasks);
 
   document.addEventListener("keydown", (e) => {
     if (e.ctrlKey && e.key == "q") {
@@ -35,7 +37,10 @@ function Kanban() {
     if (!over) return;
     const taskId = Number(active.id);
     const newStatus = over.id as "pending" | "inProgress" | "completed";
-    changeStatus(taskId, newStatus);
+
+    const task = tasks.find((task) => task.id === taskId);
+
+    if (task?.status != newStatus) changeStatus(taskId, newStatus);
   };
 
   useEffect(() => {
@@ -46,6 +51,7 @@ function Kanban() {
       } else {
         // console.log("No user logged in.");
         clearUser();
+        clearData();
       }
     });
 
@@ -53,10 +59,10 @@ function Kanban() {
   }, []);
 
   return (
-    <div className="min-h-screen p-6 rounded flex flex-col justify-between">
+    <div className="min-h-screen p-3 md:p-6 rounded flex flex-col justify-between">
       <Header />
       <DndContext onDragEnd={handleDragEnd}>
-        <div className="mt-6 flex gap-6 mb-auto">
+        <div className="mt-6 flex gap-6 mb-auto flex-wrap">
           <Column title="Pending" type="pending" />
           <Column title="In Progress" type="inProgress" />
           <Column title="Completed" type="completed" />
@@ -72,7 +78,7 @@ function Kanban() {
           to add new note
         </span>
       </div>
-      <div className="bg-gray-500/20 p-2 rounded flex justify-around">
+      <div className="bg-gray-500/20 p-2 rounded flex justify-around flex-wrap gap-3">
         <span className="bg-white/10 py-0.5 px-2 rounded mx-3">
           taskCount: {taskCount}
         </span>

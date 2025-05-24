@@ -29,10 +29,10 @@ export async function getUserData(uid: string) {
     console.log("Error getting user data", error);
   }
 }
-export async function updateData(uid: string, newData: TaskType) {
+export async function updateData(uid: string, newData: TaskType[]) {
   const userRef = doc(db, "users", uid);
   try {
-    await updateDoc(userRef, newData);
+    await updateDoc(userRef, { tasks: newData });
   } catch (error) {
     console.error("Error updating user data:", error);
   }

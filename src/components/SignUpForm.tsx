@@ -56,6 +56,7 @@ function SignUpForm() {
       await saveUserData(useCredentials.user.uid, username, email);
       setUsername(username);
       setUId(useCredentials.user.uid);
+
       // console.log(useCredentials.user);
       closePopup();
     } catch (error) {

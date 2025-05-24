@@ -19,7 +19,7 @@ function Column({ title, type }: ColumnProps) {
   );
 
   return (
-    <div className="max-w-[33%] h-fit bg-slate-100/50 rounded-md grow overflow-hidden">
+    <div className="h-fit bg-slate-100/50 rounded-md grow">
       <h2
         className={`text-center text-2xl font-bold  text-white  ${
           title == "Pending"

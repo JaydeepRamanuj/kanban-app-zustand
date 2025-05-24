@@ -1,5 +1,7 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
+import useAppStore from "./useAppStore";
+import { updateData } from "../lib/firebaseServices";
 
 export type TaskType = {
   id: number;
@@ -15,6 +17,8 @@ export type KanbanState = {
   pendingTasks: number;
   inProgressTasks: number;
   completedTasks: number;
+  initialize: (tasks: TaskType[]) => void;
+  clearData: () => void;
   addTask: (
     title: string,
     description: string,
@@ -42,30 +46,18 @@ const useKanbanStore = create<KanbanState>()(
         status: "pending" | "inProgress" | "completed"
       ) => {
         set((state) => {
+          const uid = useAppStore.getState().uid;
+          const updatedTasks = [
+            ...state.tasks,
+            { id: state.id + 1, title, status, description },
+          ];
+          if (uid) updateData(uid, updatedTasks);
           return {
             id: state.id + 1,
-            tasks: [
-              ...state.tasks,
-              { id: state.id + 1, title, status, description },
-            ],
+            tasks: updatedTasks,
             taskCount: state.taskCount + 1,
             [`${status}Tasks`]: state[`${status}Tasks`] + 1,
           };
-        });
-      },
-      removeTask: (id: number) => {
-        set((state) => {
-          const task = state.tasks.find((task) => task.id == id);
-          if (task) {
-            return {
-              [`${task.status}Tasks`]: state[`${task.status}Tasks`] - 1,
-              [`${task.status}Tasks`]: state[`${task.status}Tasks`] - 1,
-              tasks: state.tasks.filter((task) => task.id != id),
-              taskCount: state.taskCount - 1,
-            };
-          } else {
-            return state;
-          }
         });
       },
       changeStatus: (
@@ -80,6 +72,9 @@ const useKanbanStore = create<KanbanState>()(
             }
             return task;
           });
+
+          const uid = useAppStore.getState().uid;
+          if (uid) updateData(uid, updatedTasks);
           if (task) {
             return {
               tasks: updatedTasks,
@@ -90,6 +85,56 @@ const useKanbanStore = create<KanbanState>()(
             return state;
           }
         });
+      },
+      removeTask: (id: number) => {
+        set((state) => {
+          const task = state.tasks.find((task) => task.id == id);
+          const updatedTasks = state.tasks.filter((task) => task.id != id);
+
+          const uid = useAppStore.getState().uid;
+          if (uid) updateData(uid, updatedTasks);
+          if (task) {
+            return {
+              [`${task.status}Tasks`]: state[`${task.status}Tasks`] - 1,
+              [`${task.status}Tasks`]: state[`${task.status}Tasks`] - 1,
+              tasks: updatedTasks,
+              taskCount: state.taskCount - 1,
+            };
+          } else {
+            return state;
+          }
+        });
+      },
+      initialize: (tasks: TaskType[]) => {
+        set(() => {
+          const statusCount = tasks.reduce(
+            (acc, task) => {
+              acc[task.status] = (acc[task.status] || 0) + 1;
+              return acc;
+            },
+            { pending: 0, inProgress: 0, completed: 0 }
+          );
+
+          console.log(statusCount);
+
+          return {
+            tasks: tasks,
+            id: tasks.length,
+            pendingTasks: statusCount.pending,
+            inProgressTasks: statusCount.inProgress,
+            completedTasks: statusCount.completed,
+          };
+        });
+      },
+      clearData: () => {
+        set(() => ({
+          tasks: [],
+          id: 0,
+          taskCount: 0,
+          pendingTasks: 0,
+          inProgressTasks: 0,
+          completedTasks: 0,
+        }));
       },
     }),
     {

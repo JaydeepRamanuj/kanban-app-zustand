@@ -8,11 +8,13 @@ import useAppStore from "../stores/useAppStore";
 import { firebaseErrorMessages } from "../utils/firebaseErrorMessages";
 import { getUserData } from "../lib/firebaseServices";
 import GoogleSignInButton from "./GoogleSignInButton";
+import useKanbanStore from "../stores/useKanbanStore";
 function SignInForm() {
   const [isPassVisible, setPassVisible] = useState<boolean>(false);
   const closePopup = useAppStore((state) => state.closePopup);
   const setUsername = useAppStore((state) => state.setUsername);
   const setUId = useAppStore((state) => state.setUId);
+  const initialize = useKanbanStore((state) => state.initialize);
   const validationSchema = yup.object({
     email: yup
       .string()
@@ -44,6 +46,7 @@ function SignInForm() {
       const user = await getUserData(useCredentials.user.uid);
       setUsername(user?.username);
       setUId(useCredentials.user.uid);
+      initialize(user?.tasks);
       closePopup();
     } catch (error) {
       console.log("Error signing in user", error);
